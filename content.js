@@ -1,17 +1,8 @@
 function removeShortsContent() {
 
-    // --------------------------------------------------
-    // 1. Remove the Shorts shelf from normal YouTube pages
-    // --------------------------------------------------
-
     document.querySelectorAll("ytd-reel-shelf-renderer").forEach(element => {
         element.remove();
     });
-
-
-    // --------------------------------------------------
-    // 2. Remove individual Shorts cards
-    // --------------------------------------------------
 
     document.querySelectorAll(
         'a[href^="/shorts/"], a[href*="youtube.com/shorts/"]'
@@ -30,35 +21,23 @@ function removeShortsContent() {
 }
 
 
-// --------------------------------------------------
-// 3. Block the actual Shorts page
-// --------------------------------------------------
-
 function blockShortsPage() {
 
     if (window.location.pathname.startsWith("/shorts/")) {
 
-        // Hide the Shorts interface immediately
+        
         const shortsPage = document.querySelector("ytd-shorts");
 
         if (shortsPage) {
             shortsPage.style.display = "none";
         }
 
-        // Send the user back to YouTube Home
         window.location.replace("https://www.youtube.com/");
     }
 }
 
-
-// Run when script starts
 blockShortsPage();
 removeShortsContent();
-
-
-// --------------------------------------------------
-// 4. Watch for YouTube's dynamic page changes
-// --------------------------------------------------
 
 const observer = new MutationObserver(() => {
 
